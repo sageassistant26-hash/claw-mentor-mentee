@@ -138,7 +138,32 @@ For analysis, focus on the `files` section. The `platform` section is used durin
 - Read `~/.openclaw/claw-mentor/state.json` — any saved user_profile (goals, context)?
 - Draw on everything you know about this user from your conversations, workspace files, and active projects
 
+**Step B2 — Determine report mode (CRITICAL):**
+
+Check `~/.openclaw/claw-mentor/state.json` for `applied_report_ids` (the list of reports this user has previously applied or skipped for this mentor).
+
+- **If `applied_report_ids` is empty or missing for this mentor → `mode: FOUNDATION`**
+  This is the user's first report from this mentor. They have never received a previous version. Do NOT present this as a diff or "what changed." Present it as a full introduction to the mentor's approach.
+
+- **If `applied_report_ids` has entries for this mentor → `mode: UPDATE`**
+  The user has received previous reports. Present this as a diff — what changed, what's new, what to consider updating.
+
 **Step C — Analyze the gap yourself:**
+
+**If `mode: FOUNDATION`** — Full orientation analysis:
+You are introducing this user to a complete, battle-tested setup they've never seen before. Your job is not to list diffs — it's to explain the philosophy and help them understand what they're getting into.
+
+Structure your analysis around:
+- What is this mentor's overall approach? (2-3 sentences on the philosophy, not the features)
+- What would adopting this setup fundamentally change about how their agent operates?
+- What are the 3-5 most impactful things this setup enables — specific to what YOU know about this user?
+- What's the suggested adoption order? (Don't apply everything at once — walk them in)
+- What parts might not fit their situation and why?
+- What prerequisites do they need before applying anything?
+
+Use the `setup-guide.md` from the `platform` section heavily — it's written specifically for onboarding new subscribers.
+
+**If `mode: UPDATE`** — Delta analysis:
 You are the LLM. You have context the backend never could. Work through these:
 - Which of the mentor's skills do you NOT currently have installed? Those are candidates to add.
 - For each candidate skill: what would it concretely enable for THIS user? Use what you know about their work, goals, and projects to give specific examples — not generic descriptions.
@@ -148,10 +173,39 @@ You are the LLM. You have context the backend never could. Work through these:
 - Overall: is this update a good fit for this person right now?
 
 **Step D — Present your analysis** (bullet lists only — no markdown tables):
+
+**If `mode: FOUNDATION`**, use this format:
+```
+🔥 Welcome to {mentor_name}'s setup — {date}
+
+[2-3 sentences on the philosophy of this setup — what kind of agent does it create?]
+
+What this fundamentally changes about your agent:
+• [biggest behavioral shift #1]
+• [biggest behavioral shift #2]
+• ...
+
+The 3 things to apply first:
+1. [highest-impact piece with clear why]
+2. [second piece]
+3. [third piece]
+
+What to hold off on until you're comfortable:
+• [component] — [why it's better suited for later]
+
+Prerequisites before applying anything:
+• [what they need in place first]
+
+My take: [Honest one-sentence recommendation — is this a good fit for them right now?]
+
+Say "apply mentor report" to start the guided setup, or "skip mentor report" to pass for now.
+```
+
+**If `mode: UPDATE`**, use this format:
 ```
 📋 Update from {mentor_name} — {date}
 
-[Your plain-English summary of what this update means for THIS user specifically — 2-3 sentences based on their actual context]
+[Your plain-English summary of what changed in this version — 2-3 sentences based on their actual context]
 
 What would change for you:
 • [capability or behavior change — phrased in terms of what they can now do/say/get]
@@ -159,7 +213,6 @@ What would change for you:
 
 Skills to add ({N}):
 • skill-name — [what it enables FOR THIS USER, with a specific example from their work]
-• skill-name — [same — personalized]
 • ...
 
 Permissions this would add:
